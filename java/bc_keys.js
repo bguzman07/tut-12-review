@@ -42,11 +42,39 @@ function findKeyWords() {
 
    aside.appendChild(list);
 
-   var keyWordElems = document.querySelectorAll("dfn")[0];
+   var keyWordElems = document.querySelectorAll("dfn");
+   var keyWords = [keyWordElems];
 
+
+   
+   
+   for (var i = 0; i < keyWordElems.length; i++) {
+      keyWords[i] = keyWordElems[i].textContent;
+   
+      keyWordElems[i].setAttribute("id", replaceWS(keyWords[i]));
+      var linkID = replaceWS(keyWords[i]);
+
+      keyWordElems[i].setAttribute("id", "keyword_" + linkID);
+   }
+
+   console.log(keyWordElems);
+
+   keyWords.sort();
+   console.log(keyWords);
+
+   for (var i = 0; i < keyWords.length; i++) {
+      var keyWordListItem = document.createElement("li");
+      var keyWordLink = document.createElement("a");
+
+      keyWordLink.innerHTML = keyWords[i];
+      console.log(keyWordLink)
+   }
+   
 }
 
-
+function makeKeyStyles() {
+   
+}
 
 
 
