@@ -30,11 +30,13 @@
 window.addEventListener("load", findKeyWords);
 window.addEventListener("load", makeKeyStyles);
 
+// Finds the key words in the document and puts them into an array
 function findKeyWords() {
+   // Creates the aside box, heading, and ordered list
    var aside = document.createElement("aside");
    aside.setAttribute("id", "keywords");
    var heading = document.createElement("h1");
-   heading.setAttribute("value", "Keyword List");
+   heading.textContent = "Keyword List";
 
    aside.appendChild(heading);
 
@@ -42,12 +44,13 @@ function findKeyWords() {
 
    aside.appendChild(list);
 
+   // Puts all keyword elements from the document into an array
    var keyWordElems = document.querySelectorAll("dfn");
+   // Puts all keywords into an array
    var keyWords = [keyWordElems];
 
 
-   
-   
+   // Sets the id of the elements
    for (var i = 0; i < keyWordElems.length; i++) {
       keyWords[i] = keyWordElems[i].textContent;
    
@@ -57,25 +60,64 @@ function findKeyWords() {
       keyWordElems[i].setAttribute("id", "keyword_" + linkID);
    }
 
-   console.log(keyWordElems);
-
    keyWords.sort();
-   console.log(keyWords);
+
 
    for (var i = 0; i < keyWords.length; i++) {
       var keyWordListItem = document.createElement("li");
       var keyWordLink = document.createElement("a");
 
       keyWordLink.innerHTML = keyWords[i];
-      console.log(keyWordLink)
+
+      var linkID = replaceWS(keyWords[i]);
+
+      keyWordLink.setAttribute("href", "#keyword_" + linkID);
+
+      keyWordListItem.appendChild(keyWordLink);
+
+      list.appendChild(keyWordListItem);
+
+      document.getElementById("doc").insertBefore(aside, document.getElementById("doc").firstChild);
    }
-   
 }
+
+
 
 function makeKeyStyles() {
+   var keyStyles = document.createElement("style");
+   
+   document.head.appendChild(keyStyles);
+
+   document.styleSheets[document.styleSheets.length-1].insertRule(
+      "aside#keywords { \
+         border: 3px solid rgb(101, 101, 101); \
+         float: right; \
+         margin: 20px 0px 20px 20px; \
+         padding: 10px; \
+         width: 320px; \
+      } ", 0
+   );
+   document.styleSheets[document.styleSheets.length-1].insertRule(
+      "aside#keywords h1 { \
+         font-size: 2em; \
+         margin: 5px; \
+         text-align: center; \
+      } ", 1);
+   document.styleSheets[document.styleSheets.length-1].insertRule(
+      "aside#keywords ol { \
+         margin-left: 20px; \
+         font-size: 1.2em; \
+      } ", 2);
+   document.styleSheets[document.styleSheets.length-1].insertRule(
+      "aside#keywords ol li { \
+         line-height: 1.5em; \
+      } ", 3);
+   document.styleSheets[document.styleSheets.length-1].insertRule(
+      "aside#keywords ol li a { \
+         color: rgb(101, 101, 101); \
+         text-decoration: none; ", 4);
    
 }
-
 
 
 
